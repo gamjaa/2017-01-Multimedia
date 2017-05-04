@@ -2,6 +2,7 @@
 @require('conn.php');
 global $mysql;
 
-echo $_POST['word'];
-
- ?>
+$query = "INSERT INTO WORD (word_data)
+          VALUES ($_POST['word'])";
+$mysqli->query($query);
+?>
