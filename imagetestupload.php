@@ -1,7 +1,7 @@
 <?php
 @require('conn.php');
 global $mysqli;
-$uploadDir = './upload/';
+$uploadDir = '/var/www/html/upload/';
 $uploadFile = $uploadDir . basename($_FILES['userfile']['name']);
 
 echo '<pre>';
