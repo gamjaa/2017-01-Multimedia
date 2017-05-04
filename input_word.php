@@ -1,6 +1,6 @@
 <?php
 @require('conn.php');
-global $mysql;
+global $mysqli;
 
 echo "<form action='/insert_word.php' method='post'>
 추천 단어<input type='text' name='word'><br>

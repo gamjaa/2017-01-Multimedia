@@ -1,8 +1,8 @@
 <?php
 @require('conn.php');
-global $mysql;
+global $mysqli;
 
-$query = "INSERT INTO WORD (word_data)
+$query = "INSERT INTO word (word_data)
           VALUES ($_POST['word'])";
 $mysqli->query($query);
 ?>
