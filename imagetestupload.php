@@ -10,7 +10,7 @@ $uploadPath = $uploadDir . $uploadFile;
 echo '<pre>';
 if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadPath)) {
     echo "파일이 유효하고, 성공적으로 업로드 되었습니다.\n";
-    $query = "update imagetest set image_data='".basename($_FILES['userfile']['name'])."' where image_id=0;";
+    $query = "update imagetest set image_data='".$uploadFile."' where image_id=0;";
     $mysqli->query($query);
     echo $query;
 } else {
