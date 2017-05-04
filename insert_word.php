@@ -1,3 +1,7 @@
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<body>
+
 <?php
 @require('conn.php');
 global $mysqli;
@@ -15,3 +19,6 @@ echo $result;
 echo "<br>num_rows:";
 echo $result->num_rows;
 ?>
+
+</body>
+</html>
