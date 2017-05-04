@@ -4,7 +4,17 @@ global $mysqli;
 $uploadDir = './upload/';
 $uploadFile = $uploadDir . basename($_FILES['userfile']['name']);
 
-move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile);
-$query = "update imagetest set image_data=".basename($_FILES['userfile']['name'])." where image_id=0;";
-$mysqli->query($query);
+echo '<pre>';
+if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
+    echo "파일이 유효하고, 성공적으로 업로드 되었습니다.\n";
+    $query = "update imagetest set image_data=".basename($_FILES['userfile']['name'])." where image_id=0;";
+    $mysqli->query($query);
+} else {
+    print "파일 업로드 공격의 가능성이 있습니다!\n";
+}
+
+echo '자세한 디버깅 정보입니다:';
+print_r($_FILES);
+
+print "</pre>";
 ?>
