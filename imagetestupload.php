@@ -2,10 +2,13 @@
 @require('conn.php');
 global $mysqli;
 $uploadDir = '/var/www/html/upload/';
-$uploadFile = $uploadDir . basename($_FILES['userfile']['name']);
+$uploadFile = date().substr($_FILES['userfile']['tmp_name'], 8).pathinfo($_FILES['userfile']['name'])['extension'];
+$uploadPath = $uploadDir . $uploadFile;
+// 원본 파일명: basename($_FILES['userfile']['name']);
+// date().substr($_FILES['userfile']['tmp_name'], 8).pathinfo($_FILES['userfile']['name'])['extension'];
 
 echo '<pre>';
-if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadFile)) {
+if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadPath)) {
     echo "파일이 유효하고, 성공적으로 업로드 되었습니다.\n";
     $query = "update imagetest set image_data='".basename($_FILES['userfile']['name'])."' where image_id=0;";
     $mysqli->query($query);
