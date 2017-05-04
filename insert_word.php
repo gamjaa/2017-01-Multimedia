@@ -9,5 +9,5 @@ echo $_POST['word'];
 echo "<br>";
 echo $query;
 echo "<br>";
-//mysqli->query($query);
+//$result = mysqli->query($query);
 ?>
