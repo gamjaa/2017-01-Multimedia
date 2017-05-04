@@ -5,6 +5,7 @@ global $mysqli;
 $query = "INSERT INTO word (word_data)
           VALUES ('".$_POST['word']."');";
 
+echo "word:";
 echo $_POST['word'];
 echo "<br>query:";
 echo $query;
