@@ -6,11 +6,11 @@ $query = "INSERT INTO word (word_data)
           VALUES ('".$_POST['word']."');";
 
 echo $_POST['word'];
-echo "<br>";
+echo "<br>query:";
 echo $query;
-echo "<br>";
+echo "<br>result:";
 $result = $mysqli->query($query);
 echo $result;
-echo "<br>";
+echo "<br>num_rows:";
 echo $result->num_rows;
 ?>
