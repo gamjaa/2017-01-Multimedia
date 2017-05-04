@@ -9,5 +9,7 @@ echo $_POST['word'];
 echo "<br>";
 echo $query;
 echo "<br>";
-//$result = mysqli->query($query);
+$result = mysqli->query("INSERT INTO word (word_data) VALUES ('다이소');"
+);
+echo result;
 ?>
