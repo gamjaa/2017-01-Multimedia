@@ -2,7 +2,7 @@
 @require('conn.php');
 global $mysqli;
 $uploadDir = '/var/www/html/upload/';
-$uploadFile = date().substr($_FILES['userfile']['tmp_name'], 8).pathinfo($_FILES['userfile']['name'])['extension'];
+$uploadFile = strval(date()).substr($_FILES['userfile']['tmp_name'], 8).".".pathinfo($_FILES['userfile']['name'])['extension'];
 $uploadPath = $uploadDir . $uploadFile;
 // 원본 파일명: basename($_FILES['userfile']['name']);
 // date().substr($_FILES['userfile']['tmp_name'], 8).pathinfo($_FILES['userfile']['name'])['extension'];
