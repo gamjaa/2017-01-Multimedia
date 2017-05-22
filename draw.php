@@ -48,6 +48,7 @@ if($gameRoomCount != 0) {
   $gameRoom[$i]['room_word_id']
   $gameRoom[$i]['room_play_id']
   */
+  echo $gameRoom[$i]['room_order'];
   if($gameRoom[$i]['room_order'] == 1) {
     $query = "select * from word where word_id='{$gameRoom[$i]['room_word_id']}'";
     echo $query;
