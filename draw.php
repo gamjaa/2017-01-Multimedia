@@ -27,11 +27,9 @@ while($data = mysqli_fetch_array($result)){
   $gameRoomCount++;
 }
 
-$i = 0;
-
 // room_order가 홀수인 게임 확인
 if($gameRoomCount != 0) {
-  for($i=0; $i++; $i<$gameRoomCount) {
+  for($i=0; $i<$gameRoomCount; $i++) {
     echo $i;
     if($gameRoom[$i]['room_order'] % 2 == 1) {
       break;
