@@ -49,13 +49,13 @@ if($gameRoomCount != 0) {
   $gameRoom[$i]['room_play_id']
   */
   if($gameRoom[$i]['room_order'] == 1) {
-    $query = "select * from word where word_id='.$gameRoom[$i]['room_word_id'].'";
+    $query = "select * from word where word_id='".$gameRoom[$i]['room_word_id']."'";
     $result = $mysqli->query($query);
     $data = mysqli_fetch_array($result);
     $word = $data['word_data'];
   }
   else {
-    $query = "select * from gamePlay where play_id='.$gameRoom[$i]['room_play_id'].'";
+    $query = "select * from gamePlay where play_id='".$gameRoom[$i]['room_play_id']."'";
     $result = $mysqli->query($query);
     $data = mysqli_fetch_array($result);
     $word = $data['play_data'];
@@ -69,7 +69,7 @@ if($gameRoomCount != 0) {
       <!-- input의 name은 $_FILES 배열의 name을 결정합니다 -->
       이 파일을 전송합니다: <input name='userfile' type='file' />
       <input type='submit' value='파일 전송' />
-      </form>"
+      </form>";
 }
 // *** 진행 중인 게임 없을 경우, gameRoom 생성 후 새로고침 ***
 else {
