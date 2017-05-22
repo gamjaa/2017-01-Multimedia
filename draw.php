@@ -49,23 +49,25 @@ if($gameRoomCount != 0) {
   $gameRoom[$i]['room_play_id']
   */
   if($gameRoom[$i]['room_order'] == 1) {
-    $query = "select * from word where word_id='".$gameRoom[$i]['room_word_id']."'";
+    $query = "select * from word where word_id='{$gameRoom[$i]['room_word_id']}'";
+    echo $query;
     $result = $mysqli->query($query);
     $data = mysqli_fetch_array($result);
     $word = $data['word_data'];
   }
   else {
-    $query = "select * from gamePlay where play_id='".$gameRoom[$i]['room_play_id']."'";
+    $query = "select * from gamePlay where play_id='{$gameRoom[$i]['room_play_id']}'";
+    echo $query;
     $result = $mysqli->query($query);
     $data = mysqli_fetch_array($result);
     $word = $data['play_data'];
   }
 
-  echo "제시어: ".$word."\n";
+  echo "제시어: {$word}\n";
   echo "<form enctype='multipart/form-data' action='drawSubmit.php' method='POST'>
       <!-- MAX_FILE_SIZE는 file 입력 필드보다 먼저 나와야 합니다 -->
       <input type='hidden' name='MAX_FILE_SIZE' value='3000000' />
-      <input type='hidden' name='play_room_id' value='".$gameRoom[$i]['room_id']."' />
+      <input type='hidden' name='play_room_id' value='{$gameRoom[$i]['room_id']}' />
       <!-- input의 name은 $_FILES 배열의 name을 결정합니다 -->
       이 파일을 전송합니다: <input name='userfile' type='file' />
       <input type='submit' value='파일 전송' />
@@ -86,7 +88,7 @@ else {
   $answer = mt_rand(0, $i-1);
 
   // gameRoom 생성 후 새로고침
-  $query = "insert into gameRoom (room_word_id) values ('".$wordset[$answer]['word_id']."')";
+  $query = "insert into gameRoom (room_word_id) values ('{$wordset[$answer]['word_id']}')";
   $mysqli->query($query);
   echo "<script language='javascript'>
           document.location.reload();
