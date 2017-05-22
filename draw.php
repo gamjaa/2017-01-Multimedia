@@ -15,7 +15,7 @@
 global $mysqli;
 
 // 진행 중인 게임 확인
-$query = "select * from gameRoom where room_order is not 0";
+$query = "select * from gameRoom where room_order != 0";
 $result = $mysqli->query($query);
 $gameRoomCount = 0;
 $gameRoom = array();
