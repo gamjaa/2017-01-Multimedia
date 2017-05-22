@@ -30,7 +30,6 @@ while($data = mysqli_fetch_array($result)){
 // room_order가 홀수인 게임 확인
 if($gameRoomCount != 0) {
   for($i=0; $i<$gameRoomCount; $i++) {
-    echo $i;
     if($gameRoom[$i]['room_order'] % 2 == 1) {
       break;
     }
@@ -49,17 +48,14 @@ if($gameRoomCount != 0) {
   $gameRoom[$i]['room_word_id']
   $gameRoom[$i]['room_play_id']
   */
-  echo $gameRoom[$i]['room_order'];
   if($gameRoom[$i]['room_order'] == 1) {
     $query = "select * from word where word_id='{$gameRoom[$i]['room_word_id']}'";
-    echo $query;
     $result = $mysqli->query($query);
     $data = mysqli_fetch_array($result);
     $word = $data['word_data'];
   }
   else {
     $query = "select * from gamePlay where play_id='{$gameRoom[$i]['room_play_id']}'";
-    echo $query;
     $result = $mysqli->query($query);
     $data = mysqli_fetch_array($result);
     $word = $data['play_data'];
