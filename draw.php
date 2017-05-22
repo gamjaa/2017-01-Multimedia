@@ -32,6 +32,7 @@ $i = 0;
 // room_order가 홀수인 게임 확인
 if($gameRoomCount != 0) {
   for($i=0; $i++; $i<$gameRoomCount) {
+    echo $i;
     if($gameRoom[$i]['room_order'] % 2 == 1) {
       break;
     }
