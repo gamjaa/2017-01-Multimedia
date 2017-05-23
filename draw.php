@@ -46,18 +46,18 @@ if(isset($_POST['submit'])) {
 
       echo "<script language='javascript'>
               alert('성공!');
-            </script>"
+            </script>";
     }
     else {
       echo "<script language='javascript'>
               alert('이미지 업로드 실패!');
-            </script>"
+            </script>";
     }
   }
   else {
     echo "<script language='javascript'>
             alert('이미 진행된 순서입니다.');
-          </script>"
+          </script>";
   }
 }
 else {
