@@ -1,5 +1,5 @@
 <?php
-$mysqli = new mysqli("127.0.0.1", "root", "123", "telestration");
+$mysqli = new mysqli("localhost", "multi", "123", "telestration");
 
 /*
 소스 작성시 참고용
