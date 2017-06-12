@@ -1,5 +1,7 @@
 <?php
-/*
+/*error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
 진행 중인 게임이 있는지 확인(room_order != 0)
 - 있을 경우
   - 진행 중인 게임 중에 room_order가 홀수인 게임 불러오기
@@ -27,13 +29,13 @@ if(isset($_POST['submit'])) {
   }
   if($check != 0) {
     // 이미지 업로드
-    $uploadDir = '/var/www/html/upload/';
+    $uploadDir = '/home/multi/html/upload/';
     $uploadFile = date("U").substr($_FILES['userfile']['tmp_name'], 8).".".pathinfo($_FILES['userfile']['name'])['extension'];
     $uploadPath = $uploadDir . $uploadFile;
 
     if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadPath)) {
       // 이미지명 DB 저장
-      $query = "insert into gamePlayImage(image_data) values (image_data='{$uploadFile}');";
+      $query = "insert into gamePlayImage(image_data) values ('{$uploadFile}');";
       $mysqli->query($query);
 
       // 게임 플레이 정보 저장
@@ -46,17 +48,20 @@ if(isset($_POST['submit'])) {
 
       echo "<script language='javascript'>
               alert('성공!');
+              location.replace('index.php');
             </script>";
     }
     else {
       echo "<script language='javascript'>
               alert('이미지 업로드 실패!');
+              location.replace('index.php');
             </script>";
     }
   }
   else {
     echo "<script language='javascript'>
             alert('이미 진행된 순서입니다.');
+            location.replace('index.php');
           </script>";
   }
 }
@@ -90,12 +95,6 @@ else {
 
   // *** 진행 중인 게임 있을 경우, 그림 그리기 ***
   if($gameRoomCount != 0) {
-    /*
-    $gameRoom[$i]['room_id']
-    $gameRoom[$i]['room_order']
-    $gameRoom[$i]['room_word_id']
-    $gameRoom[$i]['room_play_id']
-    */
     if($gameRoom[$i]['room_order'] == 1) {
       $query = "select * from word where word_id='".$gameRoom[$i]['room_word_id']."'";
       $result = $mysqli->query($query);

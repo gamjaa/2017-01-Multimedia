@@ -1,7 +1,7 @@
 <?php
 @require('conn.php');
 global $mysqli;
-$uploadDir = './upload/';
+$uploadDir = '/home/multi/html/upload/';
 $uploadFile = date("U").substr($_FILES['userfile']['tmp_name'], 8).".".pathinfo($_FILES['userfile']['name'])['extension'];
 $uploadPath = $uploadDir . $uploadFile;
 // 원본 파일명: basename($_FILES['userfile']['name']);
