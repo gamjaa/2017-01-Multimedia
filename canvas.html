@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)http://getbootstrap.com/examples/jumbotron-narrow/ -->
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Web Telestrations</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./canvas/bootstrap.min.css" rel="stylesheet">
+    <link href="./canvas/jumbotron-narrow.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation" class="active"><a href="./canvas.html#">Home</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">Web Telestrations</h3>
+    </div>
+
+    <form action="http://multi.gamjabox.kr/imagetestupload.php" method="post">
+        <div class="jumbotron">
+            <canvas style="margin-bottom: 10px; " height="500px" width="600px" id="canvas"></canvas>
+        </div>
+
+    </form>
+    <div class="row marketing">
+        <button type="button" class="btn btn-undo">Undo</button>
+        <button type="button" class="btn btn-clear">Clear</button>
+
+        <form id="myForm" enctype="multipart/form-data" action="http://multi.gamjabox.kr/jkw/imagetestupload.php" method="POST">
+            <input type="hidden" id="userfile" name="userfile">
+            <button type="button" class="btn btn-save" onclick="download_func()">Upload</button>
+        </form>
+
+    </div>
+
+
+
+    <footer class="footer">
+        <p>© 2017 cnu-cse termproject</p>
+    </footer>
+
+</div>
+<script src="./canvas/canvas.js"></script>
+</body>
+
+</html>

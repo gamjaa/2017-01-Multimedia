@@ -1,8 +1,14 @@
+<html>
+<head>
+  <link href="./canvas/bootstrap.min.css" rel="stylesheet">
+  <link href="./canvas/jumbotron-narrow.css" rel="stylesheet">
+</head>
+<body>
 <?php
-/*error_reporting(E_ALL);
+error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
-진행 중인 게임이 있는지 확인(room_order != 0)
+/*진행 중인 게임이 있는지 확인(room_order != 0)
 - 있을 경우
   - 진행 중인 게임 중에 room_order가 홀수인 게임 불러오기
     - 없으면 '없을 경우'로
@@ -23,7 +29,8 @@ if(isset($_SESSION['user_id'])) {
 require_once 'conn.php';
 global $mysqli;
 
-if(isset($_POST['submit'])) {
+if(isset($_POST['userfile'])) {
+  echo "myFomrm";
   // 게임 플레이 정보 입력
   $play_room_id = $_POST['play_room_id'];
   $play_order = $_POST['play_order'];
@@ -38,10 +45,17 @@ if(isset($_POST['submit'])) {
   if($check != 0) {
     // 이미지 업로드
     $uploadDir = '/home/multi/html/upload/';
-    $uploadFile = date("U").substr($_FILES['userfile']['tmp_name'], 8).".".pathinfo($_FILES['userfile']['name'])['extension'];
+    //$uploadFile = date("U").substr($_FILES['userfile']['tmp_name'], 8).".".pathinfo($_FILES['userfile']['name'])['extension'];
+    $uploadFile = date("Uu").".png";
     $uploadPath = $uploadDir . $uploadFile;
 
-    if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadPath)) {
+    $data = explode(',', $_POST['userfile']);
+    $content = base64_decode($data[1]);
+    $file = fopen($uploadPath, "wb");
+    fwrite($file, $content);
+    fclose($file);
+
+    //if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadPath)) {
       // 이미지명 DB 저장
       $query = "insert into gamePlayImage(image_data) values ('{$uploadFile}');";
       $mysqli->query($query);
@@ -58,13 +72,13 @@ if(isset($_POST['submit'])) {
               alert('성공!');
               location.replace('index.php');
             </script>";
-    }
+    /*}
     else {
       echo "<script language='javascript'>
               alert('이미지 업로드 실패!');
               location.replace('index.php');
             </script>";
-    }
+    }*/
   }
   else {
     echo "<script language='javascript'>
@@ -118,12 +132,12 @@ else {
 
     echo "제시어: {$word}<br>";
     // TODO: POST 값 수정을 통한 공격을 막기 위해 서버로부터 계산된 검증 데이터 전송 필요
-    echo "<form enctype='multipart/form-data' method='POST'>
+    /*echo "<form enctype='multipart/form-data' method='POST'>
         <input type='hidden' name='play_room_id' value='".$gameRoom[$i]['room_id']."' />
         <input type='hidden' name='play_order' value='".$gameRoom[$i]['room_order']."' />
         이 파일을 전송합니다: <input name='userfile' type='file' />
         <input type='submit' name='submit' value='파일 전송' />
-        </form>";
+        </form>";*/
   }
   // *** 진행 중인 게임 없을 경우, gameRoom 생성 후 새로고침 ***
   else {
@@ -148,3 +162,15 @@ else {
   }
 }
 ?>
+<div class="jumbotron">
+    <canvas style="margin-bottom: 10px; " height="500px" width="600px" id="canvas"></canvas>
+</div>
+<form id="myForm" name="myForm" method="POST">
+  <input type='hidden' name='play_room_id' value='<?=$gameRoom[$i]['room_id']?>' />
+  <input type='hidden' name='play_order' value='<?=$gameRoom[$i]['room_order']?>' />
+    <input type="hidden" id="userfile" name="userfile">
+    <button type="button" class="btn btn-save" onclick="download_func()">제출</button>
+</form>
+<script src="./canvas/canvas.js"></script>
+</body>
+</html>

@@ -1,8 +1,8 @@
 <?php
-error_reporting(E_ALL);
+/*error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
-/*진행 중인 게임이 있는지 확인(room_order != 0)
+진행 중인 게임이 있는지 확인(room_order != 0)
 - 있을 경우
   - 진행 중인 게임 중에 room_order가 짝수인 게임 불러오기
     - 없으면 '없을 경우'로
@@ -113,7 +113,7 @@ else {
   // TODO: 기존 게임방 복제
   else {
     echo "<script language='javascript'>
-            alert('게임방이 없습니다.');
+            alert('게임방이 없습니다 ㅠ\\n그림 그리기로 참여해주세요.');
             location.replace('index.php');
           </script>";
   }
