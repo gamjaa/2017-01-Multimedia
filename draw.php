@@ -30,7 +30,6 @@ require_once 'conn.php';
 global $mysqli;
 
 if(isset($_POST['userfile'])) {
-  echo "myFomrm";
   // 게임 플레이 정보 입력
   $play_room_id = $_POST['play_room_id'];
   $play_order = $_POST['play_order'];
@@ -38,10 +37,8 @@ if(isset($_POST['userfile'])) {
   // 게임방, 차례에 맞는지 확인
   $query = "select * from gameRoom where room_id={$play_room_id} and room_order={$play_order};";
   $result = $mysqli->query($query);
-  $check = 0;
-  while($data = mysqli_fetch_array($result)){
-    $check++;
-  }
+  $check = $result->num_rows;
+
   if($check != 0) {
     // 이미지 업로드
     $uploadDir = '/home/multi/html/upload/';
@@ -57,11 +54,11 @@ if(isset($_POST['userfile'])) {
 
     //if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadPath)) {
       // 이미지명 DB 저장
-      $query = "insert into gamePlayImage(image_data) values ('{$uploadFile}');";
-      $mysqli->query($query);
+      /*$query = "insert into gamePlayImage(image_data) values ('{$uploadFile}');";
+      $mysqli->query($query);*/
 
       // 게임 플레이 정보 저장
-      $query = "insert into gamePlay(play_room_id, play_room_order, play_user_id, play_data) values({$play_room_id}, {$play_order}, {$user_id}, {$mysqli->insert_id})";
+      $query = "insert into gamePlay(play_room_id, play_room_order, play_user_id, play_data) values({$play_room_id}, {$play_order}, {$user_id}, '{$uploadFile}')";
       $mysqli->query($query);
 
       // 게임방 정보 변경
@@ -144,17 +141,19 @@ else {
     // word 테이블에서 단어 불러오기 후 랜덤으로 한 개 선정
     $query = "select * from word";
     $result = $mysqli->query($query);
-    $i = 0;
+    /*$i = 0;
     $wordset = array();
     while($data = mysqli_fetch_array($result)){
       $wordset[$i]['word_id'] = $data['word_id'];
       $wordset[$i]['word_data'] = $data['word_data'];
       $i++;
-    }
-    $answer = mt_rand(0, $i-1);
+    }*/
+    $random = mt_rand(0, $result->num_rows-1);
+    $result->data_seek($random);
+    $answer = $result->fetch_assoc();
 
     // gameRoom 생성 후 새로고침
-    $query = "insert into gameRoom (room_word_id) values ('".$wordset[$answer]['word_id']."')";
+    $query = "insert into gameRoom (room_word_id) values ('".$answer['word_id']."')";
     $mysqli->query($query);
     echo "<script language='javascript'>
             document.location.reload();
@@ -166,8 +165,8 @@ else {
     <canvas style="margin-bottom: 10px; " height="500px" width="600px" id="canvas"></canvas>
 </div>
 <form id="myForm" name="myForm" method="POST">
-  <input type='hidden' name='play_room_id' value='<?=$gameRoom[$i]['room_id']?>' />
-  <input type='hidden' name='play_order' value='<?=$gameRoom[$i]['room_order']?>' />
+    <input type='hidden' name='play_room_id' value='<?=$gameRoom[$i]['room_id']?>' />
+    <input type='hidden' name='play_order' value='<?=$gameRoom[$i]['room_order']?>' />
     <input type="hidden" id="userfile" name="userfile">
     <button type="button" class="btn btn-save" onclick="download_func()">제출</button>
 </form>

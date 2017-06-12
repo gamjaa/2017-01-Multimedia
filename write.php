@@ -31,16 +31,14 @@ if(isset($_POST['submit'])) {
   // 게임방, 차례에 맞는지 확인
   $query = "select * from gameRoom where room_id={$play_room_id} and room_order={$play_order};";
   $result = $mysqli->query($query);
-  $check = 0;
-  while($data = mysqli_fetch_array($result)){
-    $check++;
-  }
+  $check = $result->num_rows;
+
   if($check != 0) {
     // 게임 플레이 정보 저장
     $query = "insert into gamePlay(play_room_id, play_room_order, play_user_id, play_data) values({$play_room_id}, {$play_order}, {$user_id}, '{$play_data}')";
     $mysqli->query($query);
 
-    if($play_order == 6) {
+    if($play_order == 4) {
       // 게임 종료
       $query = "update gameRoom set room_order=0, room_play_id=".$mysqli->insert_id." where room_id={$play_room_id};";
       $mysqli->query($query);
@@ -93,12 +91,8 @@ else {
   if($gameRoomCount != 0) {
     $query = "select * from gamePlay where play_id='".$gameRoom[$i]['room_play_id']."'";
     $result = $mysqli->query($query);
-    $data = mysqli_fetch_array($result);
-
-    $query = "select * from gamePlayImage where image_id='".$data['play_data']."'";
-    $result = $mysqli->query($query);
-    $data = mysqli_fetch_array($result);
-    $image = "/upload/".$data['image_data'];
+    $data = mysqli_fetch_assoc($result);
+    $image = "/upload/".$data['play_data'];
 
     echo "<img src='{$image}'><br>";
     // TODO: POST 값 수정을 통한 공격을 막기 위해 서버로부터 계산된 검증 데이터 전송 필요
