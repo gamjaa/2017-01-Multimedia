@@ -12,7 +12,15 @@ ini_set("display_errors", 1);
   - word 테이블에서 랜덤으로 단어 불러와서 출력
   - 그림 그리기 후 저장, room 생성(gamePlay 데이터 생성, room_order = 2, room_play_id 입력)
 */
-@require('conn.php');
+session_start();
+
+if(isset($_SESSION['user_id'])) {
+  $user_id = $_SESSION['user_id'];
+} else {
+  header("Location: login.php");
+}
+
+require_once 'conn.php';
 global $mysqli;
 
 if(isset($_POST['submit'])) {
@@ -39,7 +47,7 @@ if(isset($_POST['submit'])) {
       $mysqli->query($query);
 
       // 게임 플레이 정보 저장
-      $query = "insert into gamePlay(play_room_id, play_room_order, play_data) values({$play_room_id}, {$play_order}, {$mysqli->insert_id})";
+      $query = "insert into gamePlay(play_room_id, play_room_order, play_user_id, play_data) values({$play_room_id}, {$play_order}, {$user_id}, {$mysqli->insert_id})";
       $mysqli->query($query);
 
       // 게임방 정보 변경

@@ -1,8 +1,8 @@
 <?php
-/*error_reporting(E_ALL);
+error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
-진행 중인 게임이 있는지 확인(room_order != 0)
+/*진행 중인 게임이 있는지 확인(room_order != 0)
 - 있을 경우
   - 진행 중인 게임 중에 room_order가 짝수인 게임 불러오기
     - 없으면 '없을 경우'로
@@ -11,7 +11,15 @@ ini_set("display_errors", 1);
 - 없을 경우
   - 그림 그리기로 참가해주세요!
 */
-@require('conn.php');
+session_start();
+
+if(isset($_SESSION['user_id'])) {
+  $user_id = $_SESSION['user_id'];
+} else {
+  header("Location: login.php");
+}
+
+require_once 'conn.php';
 global $mysqli;
 
 if(isset($_POST['submit'])) {
@@ -29,10 +37,10 @@ if(isset($_POST['submit'])) {
   }
   if($check != 0) {
     // 게임 플레이 정보 저장
-    $query = "insert into gamePlay(play_room_id, play_room_order, play_data) values({$play_room_id}, {$play_order}, '{$play_data}')";
+    $query = "insert into gamePlay(play_room_id, play_room_order, play_user_id, play_data) values({$play_room_id}, {$play_order}, {$user_id}, '{$play_data}')";
     $mysqli->query($query);
 
-    if({$play_order} == 6) {
+    if($play_order == 6) {
       // 게임 종료
       $query = "update gameRoom set room_order=0, room_play_id=".$mysqli->insert_id." where room_id={$play_room_id};";
       $mysqli->query($query);
