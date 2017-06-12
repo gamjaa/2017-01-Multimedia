@@ -21,13 +21,13 @@ if ($result->num_rows > 0) {
   echo $_POST['word'];
   echo "<br>query:";
   echo $query;
-  echo "<br>==========result==========";
+  echo "<br>====result====";
 
   for ($i=0; $i < $result->num_rows; $i++) {
     echo "<br>[".$i."]:(".$arr[$i]['word_id'].") ".$arr[$i]['word_data'];
   }
 
-  echo "<br>==========================";
+  echo "<br>===============";
   echo "<br>num_rows:";
   echo $result->num_rows;
   echo "이미 등록된 단어입니다.";
