@@ -30,7 +30,7 @@ if ($result->num_rows > 0) {
   echo "<br>=============";
   echo "<br>num_rows:";
   echo $result->num_rows;
-  echo "이미 등록된 단어입니다.";
+  echo "<br>이미 등록된 단어입니다.";
 
 } else {
   $query = "INSERT INTO word (word_data)
@@ -46,7 +46,7 @@ if ($result->num_rows > 0) {
   echo "<br>num_rows:";
   echo $result->num_rows;
 
-  echo "단어가 추가되었습니다.";
+  echo "<br>단어가 추가되었습니다.";
 }
 ?>
 </body>
