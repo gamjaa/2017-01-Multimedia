@@ -24,7 +24,7 @@ if ($result->num_rows > 0) {
   echo "<br>==========result==========";
 
   for ($i=0; $i < $result->num_rows; $i++) {
-    echo "[".$i."]:(".$arr[$i]['word_id'].") ".$arr[$i]['word_data'];
+    echo "<br>[".$i."]:(".$arr[$i]['word_id'].") ".$arr[$i]['word_data'];
   }
 
   echo "<br>==========================";
