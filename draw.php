@@ -1,14 +1,8 @@
-<html>
-<head>
-  <link href="./canvas/bootstrap.min.css" rel="stylesheet">
-  <link href="./canvas/jumbotron-narrow.css" rel="stylesheet">
-</head>
-<body>
 <?php
-error_reporting(E_ALL);
+/*error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
-/*진행 중인 게임이 있는지 확인(room_order != 0)
+진행 중인 게임이 있는지 확인(room_order != 0)
 - 있을 경우
   - 진행 중인 게임 중에 room_order가 홀수인 게임 불러오기
     - 없으면 '없을 경우'로
@@ -127,7 +121,7 @@ else {
       $word = $data['play_data'];
     }
 
-    echo "제시어: {$word}<br>";
+    //echo "제시어: {$word}<br>";
     // TODO: POST 값 수정을 통한 공격을 막기 위해 서버로부터 계산된 검증 데이터 전송 필요
     /*echo "<form enctype='multipart/form-data' method='POST'>
         <input type='hidden' name='play_room_id' value='".$gameRoom[$i]['room_id']."' />
@@ -160,16 +154,22 @@ else {
           </script>";
   }
 }
+$php_filename = basename(__FILE__);
+$title = "그림-그림 :: 그림 그리기";
+include_once("header.php");
 ?>
 <div class="jumbotron">
-    <canvas style="margin-bottom: 10px; " height="500px" width="600px" id="canvas"></canvas>
+    <h2>그림 그리기</h2>
+    <h3>제시어: <?=$word?></h3>
 </div>
+<div style="text-align: center;">
+<canvas style="" height="500px" width="600px" id="canvas"></canvas><br><br>
 <form id="myForm" name="myForm" method="POST">
     <input type='hidden' name='play_room_id' value='<?=$gameRoom[$i]['room_id']?>' />
     <input type='hidden' name='play_order' value='<?=$gameRoom[$i]['room_order']?>' />
     <input type="hidden" id="userfile" name="userfile">
     <button type="button" class="btn btn-save" onclick="download_func()">제출</button>
 </form>
+</div>
 <script src="./canvas/canvas.js"></script>
-</body>
-</html>
+<?php include_once("footer.php"); ?>

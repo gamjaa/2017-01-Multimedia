@@ -87,21 +87,33 @@ else {
     }
   }
 
+  $php_filename = basename(__FILE__);
+  $title = "그림-그림 :: 단어 맞추기";
+  include_once("header.php");
+
   // *** 진행 중인 게임 있을 경우, 단어 맞추기 ***
   if($gameRoomCount != 0) {
     $query = "select * from gamePlay where play_id='".$gameRoom[$i]['room_play_id']."'";
     $result = $mysqli->query($query);
     $data = mysqli_fetch_assoc($result);
     $image = "/upload/".$data['play_data'];
-
-    echo "<img src='{$image}'><br>";
-    // TODO: POST 값 수정을 통한 공격을 막기 위해 서버로부터 계산된 검증 데이터 전송 필요
-    echo "<form method='POST'>
-        <input type='hidden' name='play_room_id' value='".$gameRoom[$i]['room_id']."' />
-        <input type='hidden' name='play_order' value='".$gameRoom[$i]['room_order']."' />
-        <input name='play_data' type='text' />
-        <input type='submit' name='submit' value='제출' />
-        </form>";
+?>
+<div class="jumbotron">
+    <h2>단어 맞추기</h2>
+    <img src='<?=$image?>'>
+</div>
+<div style="text-align: center;">
+<form class="form-inline" method='POST'>
+  <div class="form-group">
+    <input type='hidden' name='play_room_id' value='<?=$gameRoom[$i]['room_id']?>' />
+    <input type='hidden' name='play_order' value='<?=$gameRoom[$i]['room_order']?>' />
+    <label>연상되는 단어</label>
+    <input type="text" class="form-control" id="exampleInputEmail2" name="play_data">
+  </div>
+  <button type="submit" class="btn btn-save">제출</button>
+</form>
+</div>
+<?php
   }
   // *** 진행 중인 게임 없을 경우, 경고창 ***
   // TODO: 기존 게임방 복제
@@ -113,3 +125,4 @@ else {
   }
 }
 ?>
+<?php include_once("footer.php"); ?>
