@@ -16,7 +16,11 @@ session_start();
 if(isset($_SESSION['user_id'])) {
   $user_id = $_SESSION['user_id'];
 } else {
-  header("Location: login.php");
+  echo "<script language='javascript'>
+          alert('로그인 해주세요!');
+          location.replace('index.php');
+        </script>";
+  //header("Location: index.php");
 }
 
 require_once 'conn.php';
