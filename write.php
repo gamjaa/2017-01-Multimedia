@@ -38,7 +38,7 @@ if(isset($_POST['submit'])) {
     $query = "insert into gamePlay(play_room_id, play_room_order, play_user_id, play_data) values({$play_room_id}, {$play_order}, {$user_id}, '{$play_data}')";
     $mysqli->query($query);
 
-    if($play_order == 4) {
+    if($play_order == 6) {
       // 게임 종료
       $query = "update gameRoom set room_order=0, room_play_id=".$mysqli->insert_id." where room_id={$play_room_id};";
       $mysqli->query($query);
