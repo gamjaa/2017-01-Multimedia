@@ -25,6 +25,7 @@
             <li role="presentation" <?php if($php_filename == 'index.php') echo 'class=active'; ?>><a href="index.php">Home</a></li>
             <li role="presentation"<?php if($php_filename == 'draw.php') echo 'class=active'; ?>><a href="draw.php">Draw</a></li>
             <li role="presentation"<?php if($php_filename == 'write.php') echo 'class=active'; ?>><a href="write.php">Write</a></li>
+            <li role="presentation"<?php if($php_filename == 'input_word.php') echo 'class=active'; ?>><a href="input_word.php">Word</a></li>
             <?php
             session_start();
             if(isset($_SESSION['user_id'])) {

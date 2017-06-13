@@ -108,7 +108,7 @@ else {
     <input type='hidden' name='play_room_id' value='<?=$gameRoom[$i]['room_id']?>' />
     <input type='hidden' name='play_order' value='<?=$gameRoom[$i]['room_order']?>' />
     <label>연상되는 단어</label>
-    <input type="text" class="form-control" id="exampleInputEmail2" name="play_data">
+    <input type="text" class="form-control"  name="play_data">
   </div>
   <button type="submit" class="btn btn-save">제출</button>
 </form>
