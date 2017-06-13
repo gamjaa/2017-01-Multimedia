@@ -12,5 +12,5 @@ global $mysqli;
 $query = "select * from imagetest where image_id=0";
 $result = $mysqli->query($query);
 $data = mysqli_fetch_array($result);
-echo "<img src='./upload/".$data['image_data']."'>";
+echo "<img src='/upload/".$data['image_data']."'>";
 ?>

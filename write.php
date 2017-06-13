@@ -26,7 +26,7 @@ if(isset($_SESSION['user_id'])) {
 require_once 'conn.php';
 global $mysqli;
 
-if(isset($_POST['submit'])) {
+if(isset($_POST['play_data'])) {
   // 게임 플레이 정보 입력
   $play_room_id = $_POST['play_room_id'];
   $play_order = $_POST['play_order'];
@@ -117,7 +117,7 @@ else {
     <input type='hidden' name='play_room_id' value='<?=$gameRoom[$i]['room_id']?>' />
     <input type='hidden' name='play_order' value='<?=$gameRoom[$i]['room_order']?>' />
     <label>연상되는 단어</label>
-    <input type="text" class="form-control"  name="play_data">
+    <input type="text" class="form-control" name="play_data">
   </div>
   <button type="submit" class="btn btn-save">제출</button>
 </form>

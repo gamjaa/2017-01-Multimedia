@@ -10,22 +10,28 @@ window.onload = function() {
     ctx = canvas.getContext("2d");
 
     canvas.addEventListener("mousedown", listener);
+    canvas.addEventListener("touchstart", listener);
     canvas.addEventListener("mousemove", listener);
+    canvas.addEventListener("touchmove", listener);
     canvas.addEventListener("mouseup", listener);
     canvas.addEventListener("mouseout", listener);
+    canvas.addEventListener("touchend", listener);
 }
 
 function listener(event) {
     switch (event.type) {
+        case "touchstart":
         case "mousedown":
             initDraw(event);
             break;
 
+        case "touchmove":
         case "mousemove":
             if (pos.drawable)
                 draw(event);
             break;
 
+        case "touchend":
         case "mouseout":
         case "mouseup":
             finishDraw();

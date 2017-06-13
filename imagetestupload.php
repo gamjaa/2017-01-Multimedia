@@ -1,5 +1,8 @@
 <?php
-@require('conn.php');
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
+require_once 'conn.php';
 global $mysqli;
 $uploadDir = '/home/multi/html/upload/';
 //$uploadFile = date("U").substr($_FILES['userfile']['tmp_name'], 8).".".pathinfo($_FILES['userfile']['name'])['extension'];
@@ -22,7 +25,7 @@ echo '자세한 디버깅 정보입니다:';
 print_r($_FILES);
 
 print "</pre>";*/
-$data = explode(',', $_POST('userfile'));
+$data = explode(',', $_POST['userfile']);
 $content = base64_decode($data[1]);
 $file = fopen($uploadPath, "wb");
 fwrite($file, $content);
@@ -31,4 +34,9 @@ fclose($file);
 $query = "update imagetest set image_data='".$uploadFile."' where image_id=0;";
 $mysqli->query($query);
 echo $query;
+
+$query = "select * from imagetest where image_id=0";
+$result = $mysqli->query($query);
+$data = mysqli_fetch_array($result);
+echo "<img src='/upload/".$data['image_data']."'>";
 ?>
