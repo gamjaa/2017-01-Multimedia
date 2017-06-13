@@ -44,7 +44,8 @@ if(isset($_POST['submit'])) {
       $mysqli->query($query);
     } else {
       // 게임방 정보 변경
-      $query = "update gameRoom set room_order=".($play_order+1).", room_play_id=".$mysqli->insert_id." where room_id={$play_room_id};";
+      // 충돌 방지 해제
+      $query = "UPDATE gameRoom SET room_order=".($play_order+1).", room_play_id=".$mysqli->insert_id.", room_user_id=null WHERE room_id={$play_room_id};";
       $mysqli->query($query);
     }
 
@@ -62,7 +63,7 @@ if(isset($_POST['submit'])) {
 }
 else {
   // 진행 중인 게임 확인
-  $query = "select * from gameRoom where room_order != 0";
+  $query = "SELECT * FROM gameRoom WHERE room_order != 0 AND (room_user_id is null OR room_user_id = {$user_id})";
   $result = $mysqli->query($query);
   $gameRoomCount = 0;
   $gameRoom = array();
@@ -93,6 +94,10 @@ else {
 
   // *** 진행 중인 게임 있을 경우, 단어 맞추기 ***
   if($gameRoomCount != 0) {
+    // 충돌 방지
+    $query = "update gameRoom set room_user_id={$user_id} where room_id=".$gameRoom[$i]['room_id'].";";
+    $mysqli->query($query);
+
     $query = "select * from gamePlay where play_id='".$gameRoom[$i]['room_play_id']."'";
     $result = $mysqli->query($query);
     $data = mysqli_fetch_assoc($result);
